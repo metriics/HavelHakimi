@@ -36,7 +36,7 @@ namespace HavelHakimi
             seq.RemoveZeroes();
 
             // make sure the sequence is not empty
-            if (seq.Get().Length == 0)
+            if (seq.IsEmpty())
             {
                 return true;
             }

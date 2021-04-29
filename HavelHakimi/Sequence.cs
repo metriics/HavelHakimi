@@ -8,9 +8,6 @@ namespace HavelHakimi
     {
         private List<int> seq;
 
-        // State bools
-        private bool isDescending = false;
-
         public Sequence(int[] newseq)
         {
             seq = new List<int>(newseq);
@@ -63,12 +60,11 @@ namespace HavelHakimi
         /// </summary>
         public void SortDescending()
         {
-            if (!isDescending)
-            {
-                DescendingSorter ds = new DescendingSorter();
-                seq.Sort(ds);
-                isDescending = true;
-            }
+            Sorter s = new Sorter();
+            seq.Sort(s);
+
+            // reverse the order
+            seq.Reverse();
         }
 
         /// <summary>
@@ -94,11 +90,6 @@ namespace HavelHakimi
         /// <param name="n"></param>
         public void FrontElimination(int n)
         {
-            if (!isDescending)
-            {
-                SortDescending();
-            }
-
             for (int i = 0; i < n; i++)
             {
                 seq[i]--;
@@ -111,9 +102,18 @@ namespace HavelHakimi
             seq.RemoveAt(0);
             return first;
         }
+
+        public bool IsEmpty()
+        {
+            if (seq.Count == 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
-    class DescendingSorter : IComparer<int>
+    class Sorter : IComparer<int>
     {
         public int Compare(int x, int y)
         {
@@ -122,7 +122,7 @@ namespace HavelHakimi
                 return 0;
             }
 
-            return y.CompareTo(x);
+            return x.CompareTo(y);
         }
     }
 }
